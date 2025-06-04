@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "qZkhfsXMgpq7JkrnPZt06WNnCTlfTk8l0AD4OTKm22U=",
+  "Source": "Customer.Monitoring.Microservice.API",
+  "BasePath": "_content/Customer.Monitoring.Microservice.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

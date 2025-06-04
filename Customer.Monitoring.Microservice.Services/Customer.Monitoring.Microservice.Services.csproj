@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Api.Gax" Version="4.10.0" />
+    <PackageReference Include="Google.Apis" Version="1.69.0" />
+    <PackageReference Include="Google.Cloud.Monitoring.V3" Version="3.15.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Customer.Microservice\Customer.Monitoring.Microservice.Domain.csproj" />
+    <ProjectReference Include="..\Customer.Monitoring.Microservice.App\Customer.Monitoring.Microservice.App.csproj" />
+    <ProjectReference Include="..\Customer.Monitoring.Microservice.Infrastructure\Customer.Monitoring.Microservice.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

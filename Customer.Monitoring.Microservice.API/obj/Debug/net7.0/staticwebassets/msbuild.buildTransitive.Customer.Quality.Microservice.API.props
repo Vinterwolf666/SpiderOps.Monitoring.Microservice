@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\Customer.Quality.Microservice.API.props" />
+</Project>
