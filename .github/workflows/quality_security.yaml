@@ -1,0 +1,60 @@
+name: Code Analysis (Security, Dependencies, SonarCloud)
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  schedule:
+    - cron: '0 3 * * 1' # Corre cada lunes a las 3 AM UTCss
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # --- Análisis de dependencias ---
+      - name: Restore and scan .NET dependencies
+        run: |
+          dotnet restore
+          dotnet list package --vulnerable > dependencias-vulnerables.txt
+
+      - name: Upload dependency report
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependencias-vulnerables
+          path: dependencias-vulnerables.txt
+
+      # --- Escaneo de secretos con Gitleaks ---
+      - name: Secret scan with Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        with:
+          args: detect --source=. --report-format=json --report-path=gitleaks-report.json
+        continue-on-error: true
+
+      - name: Upload Gitleaks report
+        uses: actions/upload-artifact@v4
+        with:
+          name: gitleaks-report
+          path: gitleaks-report.json
+
+      # --- Análisis de calidad con SonarCloud ---
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+
+      - name: Run SonarCloud analysis
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=quality-ms_integration-ms
+            -Dsonar.organization=quality-ms
+            -Dsonar.host.url=https://sonarcloud.io
