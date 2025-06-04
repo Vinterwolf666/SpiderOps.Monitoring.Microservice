@@ -1,0 +1,3 @@
+[[allowlist.files]]
+description = "Ignore configurationhost.config"
+path = "configurationhost.config"
