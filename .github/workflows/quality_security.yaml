@@ -8,7 +8,7 @@ on:
     branches:
       - master
   schedule:
-    - cron: '0 3 * * 1' # Corre cada lunes a las 3 AM UTCss
+    - cron: '0 3 * * 1' 
 
 jobs:
   analyze:
